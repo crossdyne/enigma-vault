@@ -8,7 +8,7 @@ services:
   enigma-vault-api:
     build:
       context: ..
-      dockerfile: dotnet/src/services/Secret/EnigmaVault.Secret.Service.Api/Dockerfile
+      dockerfile: dotnet/src/services/Secret/EnigmaVault.Secret.Api/Dockerfile
     image: enigma-vault/secret-api:1.1.0
 
   enigma-vault-ui:
