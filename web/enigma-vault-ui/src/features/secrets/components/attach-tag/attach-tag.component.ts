@@ -11,124 +11,124 @@ import { TagResponse } from "../../models/dto/tag.response";
     styleUrls: ['./attach-tag.component.scss'],
     standalone: true,
     imports: [
-      FormsModule
+        FormsModule
     ]
 })
 export class AttachTagComponent {
-  private dialogRef = inject(DialogRef<TagAttachmentResult>);
-  private data = inject(DIALOG_DATA) as TagAttachmentData;
+    private dialogRef = inject(DialogRef<TagAttachmentResult>);
+    private data = inject(DIALOG_DATA) as TagAttachmentData;
 
-  vault = this.data.vault;
-  availableTags = this.data.availableTags; 
-  selectedTagIds = signal<Set<string>>(new Set(this.data.initialSelectedTagIds));
-  
-  tagsModified = signal(false);
+    vault = this.data.vault;
+    availableTags = this.data.availableTags;
+    selectedTagIds = signal<Set<string>>(new Set(this.data.initialSelectedTagIds));
 
-  isCreating = signal(false);
-  newTagName = signal('');
-  newTagColor = signal('#F0F0F0');
+    tagsModified = signal(false);
 
-  editingTagId = signal<string | null>(null);
-  editName = signal('');
-  editColor = signal('');
+    isCreating = signal(false);
+    newTagName = signal('');
+    newTagColor = signal('#F0F0F0');
 
-  toggleTag(tagId: string) {
-    this.selectedTagIds.update(set => {
-      const newSet = new Set(set);
-      if (newSet.has(tagId)) {
-        newSet.delete(tagId);
-      } else {
-        newSet.add(tagId);
-      }
+    editingTagId = signal<string | null>(null);
+    editName = signal('');
+    editColor = signal('');
 
-      this.tagsModified.set(true);
-      
-      return newSet;
-    });
-  }
-
-  isSelected(tagId: string): boolean {
-    return this.selectedTagIds().has(tagId);
-  }
-
-  startCreate() {
-    this.isCreating.set(true);
-    this.newTagName.set('');
-    this.newTagColor.set('#F0F0F0');
-    this.editingTagId.set(null);
-  }
-
-  cancelCreate() {
-    this.isCreating.set(false);
-  }
-
-  async onCreateTag() {
-    const name = this.newTagName().trim();
-    const color = this.newTagColor();
-    if (!name) 
-        return;
-
-    const tagId = await this.data.actions.createTag(name, color);
-
-    if (tagId) {
-        this.tagsModified.set(true);
-        this.isCreating.set(false);
-        
+    toggleTag(tagId: string) {
         this.selectedTagIds.update(set => {
             const newSet = new Set(set);
-            newSet.add(tagId);
+            if (newSet.has(tagId)) {
+                newSet.delete(tagId);
+            } else {
+                newSet.add(tagId);
+            }
+
+            this.tagsModified.set(true);
+
             return newSet;
         });
     }
-  }
 
-  startEdit(tag: TagResponse) {
-    this.editingTagId.set(tag.id);
-    this.editName.set(tag.name);
-    this.editColor.set(tag.color);
-    this.isCreating.set(false);
-  }
-
-  cancelEdit() {
-    this.editingTagId.set(null);
-  }
-
-  async onUpdateTag(id: string) {
-    const name = this.editName().trim();
-    if (!name) return;
-
-    const success = await this.data.actions.updateTag(id, name, this.editColor());
-    if (success) {
-      this.tagsModified.set(true);
-      this.editingTagId.set(null);
+    isSelected(tagId: string): boolean {
+        return this.selectedTagIds().has(tagId);
     }
-  }
 
-  async onDeleteTag(id: string) {
-    const tag = this.availableTags().find(t => t.id === id);
-    if (!tag) return;
-    
-    if (!confirm(`Удалить тег «${tag.name}»? Это действие открепит тег от всех записей.`)) return;
-
-    const success = await this.data.actions.deleteTag(id);
-    if (success) {
-      this.selectedTagIds.update(set => {
-        const newSet = new Set(set);
-        newSet.delete(id);
-        return newSet;
-      });
-      this.tagsModified.set(true);
+    startCreate() {
+        this.isCreating.set(true);
+        this.newTagName.set('');
+        this.newTagColor.set('#F0F0F0');
+        this.editingTagId.set(null);
     }
-  }
 
-  onCancel() {
-    this.dialogRef.close();
-  }
+    cancelCreate() {
+        this.isCreating.set(false);
+    }
 
-  onSave() {
-    this.dialogRef.close({
-      selectedTagIds: Array.from(this.selectedTagIds()),
-      tagsModified: this.tagsModified()
-    });
-  }
+    async onCreateTag() {
+        const name = this.newTagName().trim();
+        const color = this.newTagColor();
+        if (!name)
+            return;
+
+        const tagId = await this.data.actions.createTag(name, color);
+
+        if (tagId) {
+            this.tagsModified.set(true);
+            this.isCreating.set(false);
+
+            this.selectedTagIds.update(set => {
+                const newSet = new Set(set);
+                newSet.add(tagId);
+                return newSet;
+            });
+        }
+    }
+
+    startEdit(tag: TagResponse) {
+        this.editingTagId.set(tag.id);
+        this.editName.set(tag.name);
+        this.editColor.set(tag.color);
+        this.isCreating.set(false);
+    }
+
+    cancelEdit() {
+        this.editingTagId.set(null);
+    }
+
+    async onUpdateTag(id: string) {
+        const name = this.editName().trim();
+        if (!name) return;
+
+        const success = await this.data.actions.updateTag(id, name, this.editColor());
+        if (success) {
+            this.tagsModified.set(true);
+            this.editingTagId.set(null);
+        }
+    }
+
+    async onDeleteTag(id: string) {
+        const tag = this.availableTags().find(t => t.id === id);
+        if (!tag) return;
+
+        if (!confirm(`Удалить тег «${tag.name}»? Это действие открепит тег от всех записей.`)) return;
+
+        const success = await this.data.actions.deleteTag(id);
+        if (success) {
+            this.selectedTagIds.update(set => {
+                const newSet = new Set(set);
+                newSet.delete(id);
+                return newSet;
+            });
+            this.tagsModified.set(true);
+        }
+    }
+
+    onCancel() {
+        this.dialogRef.close();
+    }
+
+    onSave() {
+        this.dialogRef.close({
+            selectedTagIds: Array.from(this.selectedTagIds()),
+            tagsModified: this.tagsModified()
+        });
+    }
 }

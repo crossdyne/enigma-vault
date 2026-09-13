@@ -1,105 +1,107 @@
 .app-tooltip {
-  position: fixed;
-  padding: 8px 14px;
-  background: #0A0D16;
-  border: 1px solid #3f4552; 
-  border-radius: 10px;
-  color: #e2e8f0;
-  font-size: 13px;
-  line-height: 1.4;
-  white-space: nowrap;
-  pointer-events: none;
-  z-index: 99999;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-  opacity: 0;
-  animation: tooltipIn 0.15s ease forwards;
+    position: fixed;
+    padding: 8px 14px;
+    background: #0A0D16;
+    border: 1px solid #3f4552;
+    border-radius: 10px;
+    color: #e2e8f0;
+    font-size: 13px;
+    line-height: 1.4;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 99999;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    animation: tooltipIn 0.15s ease forwards;
 
-  /* Базовые стили для псевдоэлементов */
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 0;
-  }
+    /* Базовые стили для псевдоэлементов */
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+    }
 
-  /* --- ПОЗИЦИЯ СВЕРХУ --- */
-  &--top::before {
-    left: var(--arrow-offset, 50%);
-    bottom: -6px;
-    transform: translateX(-50%);
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 6px solid #3f4552;
-  }
+    /* --- ПОЗИЦИЯ СВЕРХУ --- */
+    &--top::before {
+        left: var(--arrow-offset, 50%);
+        bottom: -6px;
+        transform: translateX(-50%);
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 6px solid #3f4552;
+    }
 
-  &--top::after {
-    left: var(--arrow-offset, 50%);
-    bottom: -5px;
-    transform: translateX(-50%);
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid #0A0D16;
-  }
+    &--top::after {
+        left: var(--arrow-offset, 50%);
+        bottom: -5px;
+        transform: translateX(-50%);
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid #0A0D16;
+    }
 
-  /* --- ПОЗИЦИЯ СНИЗУ --- */
-  &--bottom::before {
-    left: var(--arrow-offset, 50%);
-    top: -6px;
-    transform: translateX(-50%);
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-bottom: 6px solid #3f4552;
-  }
+    /* --- ПОЗИЦИЯ СНИЗУ --- */
+    &--bottom::before {
+        left: var(--arrow-offset, 50%);
+        top: -6px;
+        transform: translateX(-50%);
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-bottom: 6px solid #3f4552;
+    }
 
-  &--bottom::after {
-    left: var(--arrow-offset, 50%);
-    top: -5px;
-    transform: translateX(-50%);
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-bottom: 5px solid #0A0D16;
-  }
+    &--bottom::after {
+        left: var(--arrow-offset, 50%);
+        top: -5px;
+        transform: translateX(-50%);
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid #0A0D16;
+    }
 
-  /* --- ПОЗИЦИЯ СПРАВА  --- */
-  &--right::before {
-    top: var(--arrow-offset, 50%);
-    left: -6px;
-    transform: translateY(-50%);
-    border-top: 6px solid transparent;
-    border-bottom: 6px solid transparent;
-    border-right: 6px solid #3f4552;
-  }
+    /* --- ПОЗИЦИЯ СПРАВА  --- */
+    &--right::before {
+        top: var(--arrow-offset, 50%);
+        left: -6px;
+        transform: translateY(-50%);
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        border-right: 6px solid #3f4552;
+    }
 
-  &--right::after {
-    top: var(--arrow-offset, 50%);
-    left: -5px;
-    transform: translateY(-50%);
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;
-    border-right: 5px solid #0A0D16;
-  }
+    &--right::after {
+        top: var(--arrow-offset, 50%);
+        left: -5px;
+        transform: translateY(-50%);
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-right: 5px solid #0A0D16;
+    }
 
-  /* --- ПОЗИЦИЯ СЛЕВА --- */
-  &--left::before {
-    top: var(--arrow-offset, 50%);
-    right: -6px;
-    transform: translateY(-50%);
-    border-top: 6px solid transparent;
-    border-bottom: 6px solid transparent;
-    border-left: 6px solid #3f4552;
-  }
+    /* --- ПОЗИЦИЯ СЛЕВА --- */
+    &--left::before {
+        top: var(--arrow-offset, 50%);
+        right: -6px;
+        transform: translateY(-50%);
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        border-left: 6px solid #3f4552;
+    }
 
-  &--left::after {
-    top: var(--arrow-offset, 50%);
-    right: -5px;
-    transform: translateY(-50%);
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;
-    border-left: 5px solid #0A0D16;
-  }
+    &--left::after {
+        top: var(--arrow-offset, 50%);
+        right: -5px;
+        transform: translateY(-50%);
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 5px solid #0A0D16;
+    }
 
-  @keyframes tooltipIn {
-    to { opacity: 1; }
-  }
+    @keyframes tooltipIn {
+        to {
+            opacity: 1;
+        }
+    }
 }

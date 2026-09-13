@@ -1,25 +1,25 @@
 @use "sass:math";
 
 @mixin custom-scrollbar($width: 6px, $track: #0A0D16, $thumb: #2d3748, $thumb-hover: #4a5568) {
-  scrollbar-width: thin;
-  scrollbar-color: $thumb $track;
+    scrollbar-width: thin;
+    scrollbar-color: $thumb $track;
 
-  &::-webkit-scrollbar {
-    width: $width;
-    height: $width;
-  }
+    &::-webkit-scrollbar {
+        width: $width;
+        height: $width;
+    }
 
-  &::-webkit-scrollbar-track {
-    background: $track;
-    border-radius: math.div($width, 2);
-  }
+    &::-webkit-scrollbar-track {
+        background: $track;
+        border-radius: math.div($width, 2);
+    }
 
-  &::-webkit-scrollbar-thumb {
-    background: $thumb;
-    border-radius: math.div($width, 2);
-  }
+    &::-webkit-scrollbar-thumb {
+        background: $thumb;
+        border-radius: math.div($width, 2);
+    }
 
-  &::-webkit-scrollbar-thumb:hover {
-    background: $thumb-hover;
-  }
+    &::-webkit-scrollbar-thumb:hover {
+        background: $thumb-hover;
+    }
 }

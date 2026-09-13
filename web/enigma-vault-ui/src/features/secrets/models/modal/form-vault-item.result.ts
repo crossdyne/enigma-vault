@@ -15,10 +15,10 @@ export interface FormVaultItemBase {
 }
 
 export type FormVaultItemResult =
-  | (FormVaultItemBase & { type: VaultTypeEnum.Password;         details: StandardPassword })
-  | (FormVaultItemBase & { type: VaultTypeEnum.CreditCard;       details: CreditCard })
-  | (FormVaultItemBase & { type: VaultTypeEnum.Server;           details: Server })
-  | (FormVaultItemBase & { type: VaultTypeEnum.ApiKey;           details: ApiKey })
-  | (FormVaultItemBase & { type: VaultTypeEnum.ConnectionString; details: ConnectionString})
-  | (FormVaultItemBase & { type: VaultTypeEnum.AsymmetricKey;    details: AsymmetricKey})
-  | (FormVaultItemBase & { type: VaultTypeEnum.RecoveryKeys;     details: RecoveryKeys});
+    | (FormVaultItemBase & { type: VaultTypeEnum.Password; details: StandardPassword })
+    | (FormVaultItemBase & { type: VaultTypeEnum.CreditCard; details: CreditCard })
+    | (FormVaultItemBase & { type: VaultTypeEnum.Server; details: Server })
+    | (FormVaultItemBase & { type: VaultTypeEnum.ApiKey; details: ApiKey })
+    | (FormVaultItemBase & { type: VaultTypeEnum.ConnectionString; details: ConnectionString })
+    | (FormVaultItemBase & { type: VaultTypeEnum.AsymmetricKey; details: AsymmetricKey })
+    | (FormVaultItemBase & { type: VaultTypeEnum.RecoveryKeys; details: RecoveryKeys });

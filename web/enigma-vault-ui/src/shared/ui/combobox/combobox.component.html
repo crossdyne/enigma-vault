@@ -1,9 +1,5 @@
 <div class="combobox-wrapper" [class.disabled]="disabled">
-  <button
-    type="button"
-    class="combobox-trigger"
-    (click)="toggleDropdown()"
-    [disabled]="disabled">
+  <button type="button" class="combobox-trigger" (click)="toggleDropdown()" [disabled]="disabled">
     <span class="combobox-value" [class.placeholder]="!selected()">
       {{ displayValue }}
     </span>
@@ -21,7 +17,8 @@
         <li
           class="combobox-item"
           [class.selected]="item === selected()"
-          (mousedown)="selectItem(item)">
+          (mousedown)="selectItem(item)"
+        >
           {{ displayKey ? item[displayKey] : item }}
         </li>
       }

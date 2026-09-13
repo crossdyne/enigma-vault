@@ -1,4 +1,4 @@
 export interface TagAttachmentResult {
-  selectedTagIds: string[];
-  tagsModified?: boolean;
+    selectedTagIds: string[];
+    tagsModified?: boolean;
 }
