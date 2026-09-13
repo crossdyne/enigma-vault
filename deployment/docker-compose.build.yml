@@ -3,16 +3,16 @@ services:
     build:
       context: ..
       dockerfile: dotnet/src/apps/EnigmaVault.Web.Bff/Dockerfile
-    image: enigma-vault/bff:1.1.0 
+    image: enigma-vault/bff:1.1.1 
 
   enigma-vault-api:
     build:
       context: ..
-      dockerfile: dotnet/src/services/Secret/EnigmaVault.Secret.Service.Api/Dockerfile
-    image: enigma-vault/secret-api:1.1.0
+      dockerfile: dotnet/src/services/Secret/EnigmaVault.Secret.Api/Dockerfile
+    image: enigma-vault/secret-api:1.1.1
 
   enigma-vault-ui:
     build:
       context: ../web/enigma-vault-ui   
       dockerfile: Dockerfile
-    image: enigma-vault/ui:1.1.0
+    image: enigma-vault/ui:1.1.1

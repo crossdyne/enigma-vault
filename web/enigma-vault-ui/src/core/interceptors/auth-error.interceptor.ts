@@ -1,25 +1,22 @@
 import { HttpInterceptorFn, HttpErrorResponse } from "@angular/common/http";
-import { inject } from "@angular/core";
-import { Router } from "@angular/router";
 import { catchError, throwError } from "rxjs";
 import { environment } from "../../environments/environment";
 
 export const authErrorInterceptor: HttpInterceptorFn = (req, next) => {
-  const router = inject(Router);
 
-  if (req.headers.has('X-Skip-Auth-Interceptor')) {
-    return next(req);
-  }
+    if (req.headers.has('X-Skip-Auth-Interceptor')) {
+        return next(req);
+    }
 
-  return next(req).pipe(
-    catchError((error: HttpErrorResponse) => {
-      if (error.status === 401) {
-        const currentUrl = window.location.href;
-        const returnUrl = encodeURIComponent(currentUrl);
-        window.location.href = `${environment.returnAuthUrlBase}?returnUrl=${returnUrl}`;
-      }
-      
-      return throwError(() => error);
-    })
-  );
+    return next(req).pipe(
+        catchError((error: HttpErrorResponse) => {
+            if (error.status === 401) {
+                const currentUrl = window.location.href;
+                const returnUrl = encodeURIComponent(currentUrl);
+                window.location.href = `${environment.returnAuthUrlBase}?returnUrl=${returnUrl}`;
+            }
+
+            return throwError(() => error);
+        })
+    );
 };

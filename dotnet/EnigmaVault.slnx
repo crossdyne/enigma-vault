@@ -12,10 +12,10 @@
   </Folder>
   <Folder Name="/src/services/" />
   <Folder Name="/src/services/Secret/">
-    <Project Path="src/services/Secret/EnigmaVault.Secret.Service.Api/EnigmaVault.Secret.Service.Api.csproj" />
-    <Project Path="src/services/Secret/EnigmaVault.Secret.Service.Application/EnigmaVault.Secret.Service.Application.csproj" />
-    <Project Path="src/services/Secret/EnigmaVault.Secret.Service.Domain/EnigmaVault.Secret.Service.Domain.csproj" />
-    <Project Path="src/services/Secret/EnigmaVault.Secret.Service.Infrastructure/EnigmaVault.Secret.Service.Infrastructure.csproj" />
+    <Project Path="src/services/Secret/EnigmaVault.Secret.Api/EnigmaVault.Secret.Api.csproj" />
+    <Project Path="src/services/Secret/EnigmaVault.Secret.Application/EnigmaVault.Secret.Application.csproj" />
+    <Project Path="src/services/Secret/EnigmaVault.Secret.Domain/EnigmaVault.Secret.Domain.csproj" />
+    <Project Path="src/services/Secret/EnigmaVault.Secret.Infrastructure/EnigmaVault.Secret.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/src/shared/" />
   <Folder Name="/src/shared/contracts/">
@@ -38,9 +38,9 @@
   </Folder>
   <Folder Name="/tests/" />
   <Folder Name="/tests/integration/">
-    <Project Path="tests/integration/EnigmaVault.Secret.Service.Integration.Tests/EnigmaVault.Secret.Service.Integration.Tests.csproj" />
+    <Project Path="tests/integration/EnigmaVault.Secret.Integration.Tests/EnigmaVault.Secret.Integration.Tests.csproj" />
   </Folder>
   <Folder Name="/tests/unit/">
-    <Project Path="tests/unit/EnigmaVault.Secret.Service.Unit.Tests/EnigmaVault.Secret.Service.Unit.Tests.csproj" />
+    <Project Path="tests/unit/EnigmaVault.Secret.Unit.Tests/EnigmaVault.Secret.Unit.Tests.csproj" />
   </Folder>
 </Solution>

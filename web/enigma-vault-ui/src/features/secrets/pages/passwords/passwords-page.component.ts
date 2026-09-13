@@ -39,6 +39,8 @@ import { Clipboard } from "@angular/cdk/clipboard";
 import { CryptoWorkerService } from "../../../../core/services/crypto-worker.service";
 import { RecoveryKeys } from "../../models/domain/recovery-keys";
 import { GroupingFactory } from "../../lib/grouping/grouping.factory";
+import { PasswordInputModalResult } from "../../../../shared/ui/password-input-modal/models/password-input-modal.result";
+import { PasswordInputModalComponent } from "../../../../shared/ui/password-input-modal/password-input-modal";
 
 @Component({
     selector: 'passwords-page',
@@ -67,7 +69,28 @@ export class PasswordsPageComponent {
     private cryptoWorker = inject(CryptoWorkerService);
 
     constructor() {
-        this.initAsync();
+        if (!this.cryptoWorker.initialized) {
+            const dialogRef = this.dialog.open<PasswordInputModalResult, undefined,PasswordInputModalComponent>(
+                PasswordInputModalComponent, {
+                width: '500px',
+                disableClose: false,
+                hasBackdrop: true,
+                backdropClass: 'custom-backdrop',
+                data: undefined,
+            });
+
+            dialogRef.closed.subscribe(result => {
+                if (!result)
+                    return;
+
+                if (!result.isCorrectPassword)
+                    this.router.navigate(['/overview']);
+
+                this.initAsync();
+            });
+        } else {
+            this.initAsync();
+        }
     }
     
     private async initAsync() {
@@ -188,7 +211,7 @@ export class PasswordsPageComponent {
                     availableTags: this.tags,
                     initialSelectedTagIds: new Set(actualVault.tags.map(t => t.id)),
                     actions: {
-                        createTag: async (name: string, color: string) => {
+                        createTag: async (name: string, color: string): Promise<string | null> => {
                             const request: CreateTagRequest = { 
                                 id: '', 
                                 name, 
@@ -196,17 +219,19 @@ export class PasswordsPageComponent {
                             };
 
                             const result = await this.tagService.createAsync(request);
-                            let success = false;
+                            let tagId: string | null = null;
 
                             result.match(
-                                id => {
-                                    this.tags.update(tags => [...tags, { id, name, color }].sort(this.byName));
-                                    success = true;
+                                response => {
+                                    tagId = response.tagId;
+                                    this.tags.update(tags => 
+                                        [...tags, { id: response.tagId, name, color }].sort(this.byName)
+                                    );
                                 },
                                 errors => console.error('Ошибка создания тега: ', this.mapErrors(errors))
                             );
 
-                            return success;
+                            return tagId;
                         },
                         updateTag: async (id: string, name: string, color: string) => {
                             const request: UpdateTagRequest = { 
