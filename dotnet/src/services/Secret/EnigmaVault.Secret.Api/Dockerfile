@@ -3,10 +3,10 @@ WORKDIR /src
 
 COPY ["dotnet/Directory.Packages.props", "./"]
 
-COPY ["dotnet/src/services/Secret/EnigmaVault.Secret..Api/EnigmaVault.Secret.Api.csproj", "dotnet/src/services/Secret/EnigmaVault.Secret.Api/"]
-COPY ["dotnet/src/services/Secret/EnigmaVault.Secret..Application/EnigmaVault.Secret.Application.csproj", "dotnet/src/services/Secret/EnigmaVault.Secret.Application/"]
-COPY ["dotnet/src/services/Secret/EnigmaVault.Secret..Infrastructure/EnigmaVault.Secret.Infrastructure.csproj", "dotnet/src/services/Secret/EnigmaVault.Secret.Infrastructure/"]
-COPY ["dotnet/src/services/Secret/EnigmaVault.Secret..Domain/EnigmaVault.Secret.Domain.csproj", "dotnet/src/services/Secret/EnigmaVault.Secret.Domain/"]
+COPY ["dotnet/src/services/Secret/EnigmaVault.Secret.Api/EnigmaVault.Secret.Api.csproj", "dotnet/src/services/Secret/EnigmaVault.Secret.Api/"]
+COPY ["dotnet/src/services/Secret/EnigmaVault.Secret.Application/EnigmaVault.Secret.Application.csproj", "dotnet/src/services/Secret/EnigmaVault.Secret.Application/"]
+COPY ["dotnet/src/services/Secret/EnigmaVault.Secret.Infrastructure/EnigmaVault.Secret.Infrastructure.csproj", "dotnet/src/services/Secret/EnigmaVault.Secret.Infrastructure/"]
+COPY ["dotnet/src/services/Secret/EnigmaVault.Secret.Domain/EnigmaVault.Secret.Domain.csproj", "dotnet/src/services/Secret/EnigmaVault.Secret.Domain/"]
 
 COPY ["dotnet/src/shared/infrastructure/Shared.Messaging/Shared.Messaging.csproj", "dotnet/src/shared/infrastructure/Shared.Messaging/"]
 COPY ["dotnet/src/shared/contracts/Shared.Contracts/Shared.Contracts.csproj", "dotnet/src/shared/contracts/Shared.Contracts/"]
