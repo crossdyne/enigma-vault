@@ -14,7 +14,7 @@ export class HistoryGroupingStrategy implements GroupingStrategy {
             const added = vault.dateAdded instanceof Date ? vault.dateAdded : new Date(vault.dateAdded ?? 0);
             const updated = vault.dateUpdate instanceof Date ? vault.dateUpdate : new Date(vault.dateUpdate);
             
-            return Math.abs(updated.getTime() - added.getTime()) > 60000;
+            return Math.abs(updated.getTime() - added.getTime()) > 1000;
         });
     
         if (updatedVaults.length === 0) {

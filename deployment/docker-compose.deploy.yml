@@ -1,6 +1,6 @@
 services:
   enigma-vault-bff:
-    image: enigma-vault/bff:1.1.0
+    image: enigma-vault/bff:1.1.1
     container_name: enigma-vault-bff
     ports:
       - "7007:80" 
@@ -21,7 +21,7 @@ services:
       - enigma-vault-network
 
   enigma-vault-api:
-    image: enigma-vault/secret-api:1.1.0
+    image: enigma-vault/secret-api:1.1.1
     container_name: enigma-vault-secret-api
     ports:
       - "7008:80" 
@@ -45,7 +45,7 @@ services:
       - enigma-vault-network
 
   enigma-vault-ui:
-    image: enigma-vault/ui:1.1.0
+    image: enigma-vault/ui:1.1.1
     container_name: enigma-vault-ui
     ports:
       - "7009:80"

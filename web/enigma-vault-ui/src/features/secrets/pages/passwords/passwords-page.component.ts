@@ -39,6 +39,8 @@ import { Clipboard } from "@angular/cdk/clipboard";
 import { CryptoWorkerService } from "../../../../core/services/crypto-worker.service";
 import { RecoveryKeys } from "../../models/domain/recovery-keys";
 import { GroupingFactory } from "../../lib/grouping/grouping.factory";
+import { PasswordInputModalResult } from "../../../../shared/ui/password-input-modal/models/password-input-modal.result";
+import { PasswordInputModalComponent } from "../../../../shared/ui/password-input-modal/password-input-modal";
 
 @Component({
     selector: 'passwords-page',
@@ -67,7 +69,28 @@ export class PasswordsPageComponent {
     private cryptoWorker = inject(CryptoWorkerService);
 
     constructor() {
-        this.initAsync();
+        if (!this.cryptoWorker.initialized) {
+            const dialogRef = this.dialog.open<PasswordInputModalResult, undefined,PasswordInputModalComponent>(
+                PasswordInputModalComponent, {
+                width: '500px',
+                disableClose: false,
+                hasBackdrop: true,
+                backdropClass: 'custom-backdrop',
+                data: undefined,
+            });
+
+            dialogRef.closed.subscribe(result => {
+                if (!result)
+                    return;
+
+                if (!result.isCorrectPassword)
+                    this.router.navigate(['/overview']);
+
+                this.initAsync();
+            });
+        } else {
+            this.initAsync();
+        }
     }
     
     private async initAsync() {
