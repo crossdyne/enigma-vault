@@ -967,7 +967,7 @@ namespace EnigmaVault.Desktop.ViewModels.Pages
                 return;
             }
 
-            Tags.Add(new TagViewModel(new TagResponse(result.Value, _userContext.Id, NameTag!, Helpers.ColorConverter.RgbToHex(int.Parse(Red), int.Parse(Green), int.Parse(Blue)))));
+            Tags.Add(new TagViewModel(new TagResponse(result.Value.TagId, _userContext.Id, NameTag!, Helpers.ColorConverter.RgbToHex(int.Parse(Red), int.Parse(Green), int.Parse(Blue)))));
 
             NameTag = string.Empty;
         }
