@@ -188,7 +188,7 @@ export class PasswordsPageComponent {
                     availableTags: this.tags,
                     initialSelectedTagIds: new Set(actualVault.tags.map(t => t.id)),
                     actions: {
-                        createTag: async (name: string, color: string) => {
+                        createTag: async (name: string, color: string): Promise<string | null> => {
                             const request: CreateTagRequest = { 
                                 id: '', 
                                 name, 
@@ -196,17 +196,19 @@ export class PasswordsPageComponent {
                             };
 
                             const result = await this.tagService.createAsync(request);
-                            let success = false;
+                            let tagId: string | null = null;
 
                             result.match(
-                                id => {
-                                    this.tags.update(tags => [...tags, { id, name, color }].sort(this.byName));
-                                    success = true;
+                                response => {
+                                    tagId = response.tagId;
+                                    this.tags.update(tags => 
+                                        [...tags, { id: response.tagId, name, color }].sort(this.byName)
+                                    );
                                 },
                                 errors => console.error('Ошибка создания тега: ', this.mapErrors(errors))
                             );
 
-                            return success;
+                            return tagId;
                         },
                         updateTag: async (id: string, name: string, color: string) => {
                             const request: UpdateTagRequest = { 

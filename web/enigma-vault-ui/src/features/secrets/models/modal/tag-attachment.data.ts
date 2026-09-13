@@ -7,8 +7,8 @@ export interface TagAttachmentData {
   availableTags: Signal<TagResponse[]>;
   initialSelectedTagIds: Set<string>;
   actions: {
-    createTag: (name: string, color: string) => Promise<boolean>;
-    updateTag: (id: string, name: string, color: string) => Promise<boolean>;
-    deleteTag: (id: string) => Promise<boolean>;
-  }
+      createTag: (name: string, color: string) => Promise<string | null>;
+      updateTag: (id: string, name: string, color: string) => Promise<boolean>;
+      deleteTag: (id: string) => Promise<boolean>;
+  };
 }

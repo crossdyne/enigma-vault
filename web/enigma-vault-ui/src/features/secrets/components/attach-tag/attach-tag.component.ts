@@ -66,22 +66,19 @@ export class AttachTagComponent {
     const name = this.newTagName().trim();
     const color = this.newTagColor();
     if (!name) 
-      return;
+        return;
 
-    const success = await this.data.actions.createTag(name, color);
-    if (success) {
-      this.tagsModified.set(true);
-      this.isCreating.set(false);
-      
-      const newTag = this.availableTags().find(t => t.name === name && t.color === color);
-      if (newTag) {
+    const tagId = await this.data.actions.createTag(name, color);
+
+    if (tagId) {
+        this.tagsModified.set(true);
+        this.isCreating.set(false);
+        
         this.selectedTagIds.update(set => {
-          const newSet = new Set(set);
-          newSet.add(newTag.id);
-
-          return newSet;
+            const newSet = new Set(set);
+            newSet.add(tagId);
+            return newSet;
         });
-      }
     }
   }
 
