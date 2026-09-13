@@ -7,10 +7,10 @@ import { authErrorInterceptor } from '../core/interceptors/auth-error.intercepto
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideHttpClient(withInterceptors([bffBaseUrlInterceptor, credentialsInterceptor, authErrorInterceptor])),
-    provideBrowserGlobalErrorListeners(),
-    provideRouter(routes),
-    { provide: LOCALE_ID, useValue: 'ru' }
-  ]
+    providers: [
+        provideHttpClient(withInterceptors([bffBaseUrlInterceptor, credentialsInterceptor, authErrorInterceptor])),
+        provideBrowserGlobalErrorListeners(),
+        provideRouter(routes),
+        { provide: LOCALE_ID, useValue: 'ru' }
+    ]
 };

@@ -4,6 +4,7 @@ import { TagResponse } from "../models/dto/tag.response";
 import { Result } from "@crossdyne/toolkit";
 import { CreateTagRequest } from "../models/dto/create-tag.request";
 import { UpdateTagRequest } from "../models/dto/update-tag.request";
+import { CreateTagResponse } from "../models/dto/create-tag.response";
 
 @Injectable({
     providedIn: 'root'
@@ -13,8 +14,8 @@ export class TagService extends HttpService {
         super('api/v1/tag/')
     }
 
-    async createAsync(request: CreateTagRequest): Promise<Result<string>> {
-        return await this.postAsync<string>('', request);
+    async createAsync(request: CreateTagRequest): Promise<Result<CreateTagResponse>> {
+        return await this.postAsync<CreateTagResponse>('', request);
     }
 
     async updateAsync(request: UpdateTagRequest): Promise<Result> {

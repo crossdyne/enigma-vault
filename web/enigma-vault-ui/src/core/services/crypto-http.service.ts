@@ -7,7 +7,7 @@ import { DekResponse } from "../contracts/crypto/dek.response";
     providedIn: 'root'
 })
 export class CryptoHttpService extends HttpService {
-    
+
     constructor() {
         super('api/v1')
     }
