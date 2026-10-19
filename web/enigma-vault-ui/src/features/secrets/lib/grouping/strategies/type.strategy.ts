@@ -15,6 +15,7 @@ export class TypeGroupingStrategy implements GroupingStrategy {
             [VaultTypeEnum.ConnectionString]: 'Строки подключения',
             [VaultTypeEnum.AsymmetricKey]: 'Ассиметричные ключи',
             [VaultTypeEnum.RecoveryKeys]: 'Ключи восстановления',
+            [VaultTypeEnum.Email]: 'SMTP & Электронная почта'
         };
         
         const groups = new Map<string, VaultItemDisplay[]>();
