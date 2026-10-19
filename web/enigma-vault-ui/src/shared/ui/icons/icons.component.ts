@@ -15,6 +15,9 @@ import { ChangeIconData } from './modal/change-icon.data';
     ]
 })
 export class IconsComponent {
+onReload() {
+throw new Error('Method not implemented.');
+}
 
     constructor() {
         effect(() => {
