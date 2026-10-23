@@ -24,6 +24,8 @@ import { RecoveryKeysFormComponent } from "./types/recovery-keys/recovery-keys.c
 import { RecoveryKeys } from "../../models/domain/recovery-keys";
 import { Email } from "../../models/domain/email";
 import { EmailCardComponent } from "./types/email/email-card.component";
+import { HardwareAccessComponent } from "./types/hardware-access/hardware-access.component";
+import { HardwareAccess } from "../../models/domain/hardware-access";
 
 @Component({
     selector: 'create-vault',
@@ -40,7 +42,8 @@ import { EmailCardComponent } from "./types/email/email-card.component";
         ConnectionStringComponent,
         AsymmetricKeyComponent,
         RecoveryKeysFormComponent,
-        EmailCardComponent
+        EmailCardComponent,
+        HardwareAccessComponent
     ]
 })
 export class VaultItemFormComponent {
@@ -158,6 +161,15 @@ export class VaultItemFormComponent {
                         });
                         break;
 
+                    case VaultTypeEnum.HardwareAccess: 
+                        const hardwareAccess = this.data.decryptedDetails as HardwareAccess;
+                        this.hardwareAccess.set({
+                            Login: hardwareAccess.Login,
+                            Password: hardwareAccess.Password,
+                            Manufacturer: hardwareAccess.Manufacturer,
+                        })
+                        break;
+
                     default:
                         break;
                 }
@@ -198,7 +210,8 @@ export class VaultItemFormComponent {
         5: "Строки подключения",
         6: "Ассиметричных ключей",
         7: "Ключей восстановления",
-        8: "SMTP Сервера - Электронная почты"
+        8: "SMTP Сервера - Электронная почты",
+        9: "Аппаратного доступа",
     } 
 
     title = computed(() => this.vaultTypeEnToRu[this.activeTab()]);
@@ -217,6 +230,7 @@ export class VaultItemFormComponent {
     connectionString = signal<ConnectionString>({ Value: '', Application: '' });
     asymmetricKey = signal<AsymmetricKey>({ PublicKey: '', PrivateKey: '', Application: '', Algorithm: '', KeySize: '', Passphrase: '', Format: '', Fingerprint: '', DateCreation: '', DateExpire: '' });
     email = signal<Email>({ Login: '', Email: '', Password: '', SmtpPort: '', SmtpServer: '', EncryptionType: '' });
+    hardwareAccess = signal<HardwareAccess>({ Login: '', Password: '', Manufacturer: '' });
 
     confirm() {
         let result: FormVaultItemResult;
@@ -340,6 +354,17 @@ export class VaultItemFormComponent {
                     }
                 }
                 break;
+            case VaultTypeEnum.HardwareAccess: 
+                result = {
+                    type: VaultTypeEnum.HardwareAccess,
+                    common,
+                    details: {
+                        Login: this.hardwareAccess().Login,
+                        Password: this.hardwareAccess().Password,
+                        Manufacturer: this.hardwareAccess().Manufacturer,
+                    }
+                }
+                break;
             default:
                 return;
         }
@@ -361,6 +386,8 @@ export class VaultItemFormComponent {
         this.apiKey.set({ Key: '', BaseUrl: '', ClientId: '', ClientSecret: '', ExpirationDate: '', Environment: '', Scope: '' });
         this.connectionString.set({ Value: '', Application: '' });
         this.asymmetricKey.set({ PublicKey: '', PrivateKey: '', Application: '', Algorithm: '', KeySize: '', Passphrase: '', Format: '', Fingerprint: '', DateCreation: '', DateExpire: '' });
+        this.email.set({ Email: '', EncryptionType: '', Login: '', Password: '', SmtpPort: '', SmtpServer: '' });
+        this.hardwareAccess.set({ Login: '', Manufacturer: '', Password: '' });
     }
 
     //#endregion
