@@ -15,10 +15,7 @@ import { ChangeIconData } from './modal/change-icon.data';
     ]
 })
 export class IconsComponent {
-onReload() {
-throw new Error('Method not implemented.');
-}
-
+    
     constructor() {
         effect(() => {
             const icon = this.selectedIcon();
@@ -66,6 +63,24 @@ throw new Error('Method not implemented.');
                 return { title, icons: sortedIcons };
             })
     });
+
+    async onReload() {
+        if (!this.data.reloadIcons) {
+            console.warn('Функция reloadIcons не передана в DIALOG_DATA');
+            return;
+        }
+
+        try {
+            const newData = await this.data.reloadIcons();
+            
+            this.icons.set(newData.icons);
+            this.categories.set(newData.categories);
+        } catch (error) {
+            console.error('Ошибка при перезагрузке иконок:', error);
+        } finally {
+
+        }
+    }
 
     navigateToCreateAssets() {
         window.open('https://assets.crossdyne.com/', '_blank')

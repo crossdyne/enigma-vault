@@ -6,4 +6,5 @@ export interface ChangeIconData {
     icons: AssetUrlResponse[];
     categories: IconCategoryResponse[];
     serviceName: string;
+    reloadIcons: () => Promise<{ icons: AssetUrlResponse[], categories: IconCategoryResponse[] }>;
 }
