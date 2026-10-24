@@ -13,6 +13,7 @@ import { AsymmetricKeyViewComponent } from "./types/asymmetric-key-view/asymmetr
 import { RecoveryKeysViewComponent } from "./types/recovery-keys/recovery-keys-view.component";
 import { EmailCardViewComponent } from "./types/email/email-card-view.component";
 import { HardwareAccessViewComponent } from "./types/hardware-access/hardware-access-view.component";
+import { ActivationKeyViewComponent } from "./types/activation-key/activation-key-view.component";
 
 @Component({
     selector: 'vault-item-view',
@@ -30,7 +31,8 @@ import { HardwareAccessViewComponent } from "./types/hardware-access/hardware-ac
         AsymmetricKeyViewComponent,
         RecoveryKeysViewComponent,
         EmailCardViewComponent,
-        HardwareAccessViewComponent
+        HardwareAccessViewComponent,
+        ActivationKeyViewComponent
     ]
 })
 export class VaultItemViewComponent {
@@ -47,6 +49,7 @@ export class VaultItemViewComponent {
         7: "Ключи восстановления",
         8: "SMTP - Электронная почта",
         9: "Аппаратного доступа",
+        10: "Ключа активации",
     } 
 
     data = inject(DIALOG_DATA) as VaultItemView;

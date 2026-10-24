@@ -148,6 +148,7 @@ export class PasswordsPageComponent {
         { value: VaultTypeEnum.RecoveryKeys, name: 'Ключи восстановления' },
         { value: VaultTypeEnum.ApiKey, name: 'API ключ' },
         { value: VaultTypeEnum.AsymmetricKey, name: 'Асимметричный ключ' },
+        { value: VaultTypeEnum.ActivationKey, name: 'Ключ активации' },
     ].sort((a, b) => {
         const nameA = a.name.toLowerCase();
         const nameB = b.name.toLowerCase();
