@@ -165,7 +165,36 @@ export class PasswordsPageComponent {
                 data: {
                     icons: this.icons(),
                     categories: this.iconCategories(),
-                    serviceName: this.selectedVault()?.serviceName!
+                    serviceName: this.selectedVault()?.serviceName!,
+                    reloadIcons: async () => {
+                        let iconCategories: IconCategoryResponse[] = [];
+                        let icons: AssetUrlResponse[] = [];
+
+                        const catResult: Result<IconCategoryResponse[]> = await this.iconCategoryService.getAllAsync();
+
+                        catResult.match(
+                            categories => iconCategories = categories,
+                            errors => {
+                                console.error('Ошибка получения иконок: ', this.mapErrors(errors));
+                                return iconCategories = [];
+                            }
+                        );
+
+                        const assetResult: Result<AssetUrlResponse[]> = await this.assetService.getAllAsync();
+
+                        assetResult.match(
+                            assets => icons = assets,
+                            errors =>{
+                                console.error('Ошибка получения иконок: ', this.mapErrors(errors));
+                                return icons = [];
+                            } 
+                        );
+
+                        return {
+                            icons: icons,
+                            categories: iconCategories
+                        }
+                    }
                 }
             }
         );

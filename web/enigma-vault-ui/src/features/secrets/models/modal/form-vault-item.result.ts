@@ -2,6 +2,8 @@ import { ApiKey } from "../domain/api-key";
 import { AsymmetricKey } from "../domain/asymmetric-key";
 import { ConnectionString } from "../domain/connection-string";
 import { CreditCard } from "../domain/credit-card";
+import { Email } from "../domain/email";
+import { HardwareAccess } from "../domain/hardware-access";
 import { RecoveryKeys } from "../domain/recovery-keys";
 import { Server } from "../domain/server";
 import { StandardPassword } from "../domain/standard-password";
@@ -21,4 +23,6 @@ export type FormVaultItemResult =
     | (FormVaultItemBase & { type: VaultTypeEnum.ApiKey; details: ApiKey })
     | (FormVaultItemBase & { type: VaultTypeEnum.ConnectionString; details: ConnectionString })
     | (FormVaultItemBase & { type: VaultTypeEnum.AsymmetricKey; details: AsymmetricKey })
-    | (FormVaultItemBase & { type: VaultTypeEnum.RecoveryKeys; details: RecoveryKeys });
+    | (FormVaultItemBase & { type: VaultTypeEnum.RecoveryKeys; details: RecoveryKeys })
+    | (FormVaultItemBase & { type: VaultTypeEnum.Email; details: Email})
+    | (FormVaultItemBase & { type: VaultTypeEnum.HardwareAccess; details: HardwareAccess});
