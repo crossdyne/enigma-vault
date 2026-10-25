@@ -11,6 +11,9 @@ import { ApiKeyViewComponent } from "./types/api-key-view/api-key-view.component
 import { ConnectionStringViewComponent } from "./types/connection-string-view/connection-string-view.component";
 import { AsymmetricKeyViewComponent } from "./types/asymmetric-key-view/asymmetric-key-view.component";
 import { RecoveryKeysViewComponent } from "./types/recovery-keys/recovery-keys-view.component";
+import { EmailCardViewComponent } from "./types/email/email-card-view.component";
+import { HardwareAccessViewComponent } from "./types/hardware-access/hardware-access-view.component";
+import { ActivationKeyViewComponent } from "./types/activation-key/activation-key-view.component";
 
 @Component({
     selector: 'vault-item-view',
@@ -26,7 +29,10 @@ import { RecoveryKeysViewComponent } from "./types/recovery-keys/recovery-keys-v
         ApiKeyViewComponent,
         ConnectionStringViewComponent,
         AsymmetricKeyViewComponent,
-        RecoveryKeysViewComponent
+        RecoveryKeysViewComponent,
+        EmailCardViewComponent,
+        HardwareAccessViewComponent,
+        ActivationKeyViewComponent
     ]
 })
 export class VaultItemViewComponent {
@@ -40,7 +46,10 @@ export class VaultItemViewComponent {
         4: "Апи ключ",
         5: "Строки подключения",
         6: "Ассиметричный ключ",
-        7: "Ключи восстановления"
+        7: "Ключи восстановления",
+        8: "SMTP - Электронная почта",
+        9: "Аппаратного доступа",
+        10: "Ключа активации",
     } 
 
     data = inject(DIALOG_DATA) as VaultItemView;

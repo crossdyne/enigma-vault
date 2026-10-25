@@ -4,14 +4,15 @@ import { CryptoService, CryptoVersion, KeyDerivationService, SecurityUtils } fro
 
 const ctx = self as DedicatedWorkerGlobalScope;
 
-let dek: Uint8Array | null = null;
+let dek: CryptoKey | null = null;
 let cryptoVersion: CryptoVersion | null = null;
 
 const keyDerivation = new KeyDerivationService();
-const crypto = new CryptoService();
+const cryptoService = new CryptoService();
 
 function secureWipe(buffer: Uint8Array | null): void {
-  if (buffer) buffer.fill(0);
+  if (buffer) 
+    buffer.fill(0);
 }
 
 ctx.addEventListener('message', async (event) => {
@@ -20,6 +21,10 @@ ctx.addEventListener('message', async (event) => {
   try {
     switch (action) {
         case 'init': {
+            if (dek) {
+                throw new Error('Worker уже инициализирован. Сначала вызовите clear().');
+            }
+
             const { login, password, clientSalt, encryptedDek, version } = payload;
             const salt = SecurityUtils.fromBase64(clientSalt);
             
@@ -30,13 +35,24 @@ ctx.addEventListener('message', async (event) => {
                 version as CryptoVersion
             );
 
-            const decrypted = await crypto.decryptData<Uint8Array>(encryptedDek, kek, true);
+            const tempKekCryptoKey = await crypto.subtle.importKey(
+                    'raw',
+                    kek as BufferSource,
+                    'AES-GCM',
+                    false,
+                    ['decrypt']
+                );
+
+            const rawDek = await cryptoService.decryptData<Uint8Array>(encryptedDek, tempKekCryptoKey, true);
             
-            if (!decrypted) 
+            if (!rawDek) 
                 throw new Error('При дешифрование DEK произошла ошибка. Вернулся null');
 
-            dek = decrypted;
-            cryptoVersion = version;
+            dek = await cryptoService.importKey(rawDek, version as CryptoVersion, ['encrypt', 'decrypt']);
+            cryptoVersion = version as CryptoVersion;
+
+            secureWipe(kek);
+            secureWipe(rawDek);
 
             ctx.postMessage({ id, action: 'init', success: true });
             break;
@@ -48,7 +64,7 @@ ctx.addEventListener('message', async (event) => {
 
             const { encryptedData, isBytes } = payload;
             
-            const result = await crypto.decryptData(encryptedData, dek, isBytes ?? false);
+            const result = await cryptoService.decryptData(encryptedData, dek, isBytes ?? false);
 
             ctx.postMessage({ 
                 id, 
@@ -64,7 +80,7 @@ ctx.addEventListener('message', async (event) => {
                 throw new Error('Worker не был инициализирован');
             
             const { data, version } = payload;
-            const encrypted = await crypto.encryptData(data, dek, version as CryptoVersion);
+            const encrypted = await cryptoService.encryptData(data, dek, version as CryptoVersion);
 
             ctx.postMessage({ 
                 id, 
@@ -77,9 +93,9 @@ ctx.addEventListener('message', async (event) => {
         }
         
         case 'clear': {
-            secureWipe(dek);
             dek = null;
             cryptoVersion = null;
+
             ctx.postMessage({ id, action: 'clear', success: true });
             break;
         }

@@ -10,6 +10,9 @@ import { CryptoWorkerService } from "../../../core/services/crypto-worker.servic
 import { ConnectionString } from "../models/domain/connection-string";
 import { AsymmetricKey } from "../models/domain/asymmetric-key";
 import { RecoveryKey } from "../models/domain/recovery-keys";
+import { Email } from "../models/domain/email";
+import { HardwareAccess } from "../models/domain/hardware-access";
+import { ActivationKey } from "../models/domain/activation-key";
 
 @Injectable({ providedIn: 'root' })
 export class VaultCryptoService {
@@ -41,6 +44,12 @@ export class VaultCryptoService {
                 return await this.worker.decrypt<ConnectionString>(encrypted);
             case VaultTypeEnum.AsymmetricKey:
                 return await this.worker.decrypt<AsymmetricKey>(encrypted);
+            case VaultTypeEnum.Email:
+                return await this.worker.decrypt<Email>(encrypted);
+            case VaultTypeEnum.HardwareAccess: 
+                return await this.worker.decrypt<HardwareAccess>(encrypted);
+            case VaultTypeEnum.ActivationKey:
+                return await this.worker.decrypt<ActivationKey>(encrypted);
             default:
                 throw new Error(`Неизвестный тип: ${type}`);
         }

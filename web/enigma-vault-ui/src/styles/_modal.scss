@@ -26,7 +26,7 @@
         flex-direction: column;
         overflow: hidden;
 
-        .modal-header {
+                .modal-header {
             flex-shrink: 0;
             display: flex;
             justify-content: space-between;
@@ -42,21 +42,52 @@
                 font-weight: 600;
             }
 
-            .close-btn {
-                background: none;
+            .header-actions {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .close-btn,
+            .reload-btn {
+                width: 32px;
+                height: 32px;
+                min-width: 32px;
+                min-height: 32px;
+                background: transparent;
                 border: none;
-                font-size: 1.5rem;
                 cursor: pointer;
                 color: #6b7280;
-                line-height: 1;
-                padding: 4px;
                 border-radius: 6px;
-                transition: all 0.2s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0;
+                margin: 0;
+                transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+
+                svg {
+                    width: 20px;
+                    height: 20px;
+                    display: block;
+                }
 
                 &:hover {
                     color: #e2e8f0;
                     background: #1E2F3A;
                 }
+
+                &:active {
+                    transform: scale(0.92);
+                }
+            }
+
+            .reload-btn svg {
+                transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+
+            .reload-btn:hover svg {
+                transform: rotate(-180deg);
             }
         }
 

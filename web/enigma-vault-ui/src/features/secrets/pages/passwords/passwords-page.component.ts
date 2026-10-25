@@ -1,4 +1,4 @@
-import { Component, computed, effect, HostListener, inject, model, signal, viewChild } from "@angular/core";
+import { Component, computed, HostListener, inject, model, signal } from "@angular/core";
 import { TagService } from "../../services/tag.service";
 import { TagResponse } from "../../models/dto/tag.response";
 import { ErrorList, Result } from "@crossdyne/toolkit";
@@ -106,7 +106,22 @@ export class PasswordsPageComponent {
     selectedVault = model<VaultItemDisplay | null>(null);
     VaultType = VaultTypeEnum;
 
-    activeVaults = computed(() => this.vaults().filter(v => !v.isArchive && !v.isInTrash));
+    activeVaults = computed(() => {
+        return this.vaults().filter(v => {
+            if (v.isArchive || v.isInTrash) 
+                return false;
+            
+            if (this.selectedTypeFilter() !== null && v.type !== this.selectedTypeFilter()) {
+                return false;
+            }
+            
+            if (this.selectedTagFilter() !== null && !v.tags.some(t => t.id === this.selectedTagFilter())) {
+                return false;
+            }
+            
+            return true;
+        });
+    });
     archivedVaults = computed(() => this.vaults().filter(v => v.isArchive && !v.isInTrash));
     trashedVaults = computed(() => this.vaults().filter(v => v.isInTrash));
 
@@ -114,11 +129,39 @@ export class PasswordsPageComponent {
     activeTemplate = signal<'detailed' | 'brief' | 'compact'>('detailed');
 
     // ============================================================================
-    //                           Grouping && Sorting 
+    //                           Grouping && Sorting && Filtering
     // ============================================================================
     groupBy = signal<GroupBy>('none');
     sortBy = signal<SortBy>('ascending');
     byName = (a: TagResponse, b: TagResponse) => a.name.localeCompare(b.name);
+
+    selectedTypeFilter = signal<VaultTypeEnum | null>(null);
+    selectedTagFilter = signal<string | null>(null);
+
+    availableTypes = [
+        { value: VaultTypeEnum.Password, name: 'Пароль' },
+        { value: VaultTypeEnum.Server, name: 'Сервер' },
+        { value: VaultTypeEnum.Email, name: 'Электронная почта' },
+        { value: VaultTypeEnum.CreditCard, name: 'Кредитная карта' },
+        { value: VaultTypeEnum.ConnectionString, name: 'Строка подключения' },
+        { value: VaultTypeEnum.HardwareAccess, name: 'Доступ к оборудованию' },
+        { value: VaultTypeEnum.RecoveryKeys, name: 'Ключи восстановления' },
+        { value: VaultTypeEnum.ApiKey, name: 'API ключ' },
+        { value: VaultTypeEnum.AsymmetricKey, name: 'Асимметричный ключ' },
+        { value: VaultTypeEnum.ActivationKey, name: 'Ключ активации' },
+    ].sort((a, b) => {
+        const nameA = a.name.toLowerCase();
+        const nameB = b.name.toLowerCase();
+        return nameA.localeCompare(nameB);
+    });
+
+    toggleTypeFilter(type: VaultTypeEnum) {
+        this.selectedTypeFilter.set(this.selectedTypeFilter() === type ? null : type);
+    }
+
+    toggleTagFilter(tagId: string) {
+        this.selectedTagFilter.set(this.selectedTagFilter() === tagId ? null : tagId);
+    }
 
     groupedVaults = computed(() => {
         const vaults = this.activeVaults();
@@ -126,7 +169,6 @@ export class PasswordsPageComponent {
         const sort = this.sortBy();
 
         const groupStrategy = GroupingFactory.create(group);
-
         return groupStrategy.group(vaults, sort);
     });
 
@@ -165,7 +207,36 @@ export class PasswordsPageComponent {
                 data: {
                     icons: this.icons(),
                     categories: this.iconCategories(),
-                    serviceName: this.selectedVault()?.serviceName!
+                    serviceName: this.selectedVault()?.serviceName!,
+                    reloadIcons: async () => {
+                        let iconCategories: IconCategoryResponse[] = [];
+                        let icons: AssetUrlResponse[] = [];
+
+                        const catResult: Result<IconCategoryResponse[]> = await this.iconCategoryService.getAllAsync();
+
+                        catResult.match(
+                            categories => iconCategories = categories,
+                            errors => {
+                                console.error('Ошибка получения иконок: ', this.mapErrors(errors));
+                                return iconCategories = [];
+                            }
+                        );
+
+                        const assetResult: Result<AssetUrlResponse[]> = await this.assetService.getAllAsync();
+
+                        assetResult.match(
+                            assets => icons = assets,
+                            errors =>{
+                                console.error('Ошибка получения иконок: ', this.mapErrors(errors));
+                                return icons = [];
+                            } 
+                        );
+
+                        return {
+                            icons: icons,
+                            categories: iconCategories
+                        }
+                    }
                 }
             }
         );
@@ -752,7 +823,7 @@ export class PasswordsPageComponent {
 
     //#region Popups
 
-    activePopup = signal<'trash' | 'archive' | null>(null);
+   activePopup = signal<'trash' | 'archive' | 'type' | 'tag' | null>(null);
 
     popupArchivePositions: ConnectedPosition[] = [
         {

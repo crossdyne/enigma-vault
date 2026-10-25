@@ -1,7 +1,10 @@
+import { ActivationKey } from "../models/domain/activation-key";
 import { ApiKey } from "../models/domain/api-key";
 import { AsymmetricKey } from "../models/domain/asymmetric-key";
 import { ConnectionString } from "../models/domain/connection-string";
 import { CreditCard } from "../models/domain/credit-card";
+import { Email } from "../models/domain/email";
+import { HardwareAccess } from "../models/domain/hardware-access";
 import { RecoveryKeys } from "../models/domain/recovery-keys";
 import { Server } from "../models/domain/server";
 import { StandardPassword } from "../models/domain/standard-password";
@@ -15,6 +18,9 @@ type VaultTypeToFields = {
     [VaultTypeEnum.ConnectionString]: ConnectionString;
     [VaultTypeEnum.AsymmetricKey]: AsymmetricKey;
     [VaultTypeEnum.RecoveryKeys]: RecoveryKeys;
+    [VaultTypeEnum.Email]: Email;
+    [VaultTypeEnum.HardwareAccess]: HardwareAccess;
+    [VaultTypeEnum.ActivationKey]: ActivationKey;
 };
 
 type VaultField<T extends VaultTypeEnum> = keyof VaultTypeToFields[T] & string;
