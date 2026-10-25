@@ -1,3 +1,4 @@
+import { ActivationKey } from "../domain/activation-key";
 import { ApiKey } from "../domain/api-key";
 import { AsymmetricKey } from "../domain/asymmetric-key";
 import { ConnectionString } from "../domain/connection-string";
@@ -25,4 +26,5 @@ export type FormVaultItemResult =
     | (FormVaultItemBase & { type: VaultTypeEnum.AsymmetricKey; details: AsymmetricKey })
     | (FormVaultItemBase & { type: VaultTypeEnum.RecoveryKeys; details: RecoveryKeys })
     | (FormVaultItemBase & { type: VaultTypeEnum.Email; details: Email})
-    | (FormVaultItemBase & { type: VaultTypeEnum.HardwareAccess; details: HardwareAccess});
+    | (FormVaultItemBase & { type: VaultTypeEnum.HardwareAccess; details: HardwareAccess})
+    | (FormVaultItemBase & { type: VaultTypeEnum.ActivationKey; details: ActivationKey});

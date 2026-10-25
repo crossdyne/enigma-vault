@@ -26,6 +26,8 @@ import { Email } from "../../models/domain/email";
 import { EmailCardComponent } from "./types/email/email-card.component";
 import { HardwareAccessComponent } from "./types/hardware-access/hardware-access.component";
 import { HardwareAccess } from "../../models/domain/hardware-access";
+import { ActivationKey } from "../../models/domain/activation-key";
+import { ActivationKeyFormComponent } from "./types/activation-key/activation-key.component";
 
 @Component({
     selector: 'create-vault',
@@ -43,7 +45,8 @@ import { HardwareAccess } from "../../models/domain/hardware-access";
         AsymmetricKeyComponent,
         RecoveryKeysFormComponent,
         EmailCardComponent,
-        HardwareAccessComponent
+        HardwareAccessComponent,
+        ActivationKeyFormComponent
     ]
 })
 export class VaultItemFormComponent {
@@ -170,6 +173,14 @@ export class VaultItemFormComponent {
                         })
                         break;
 
+                    case VaultTypeEnum.ActivationKey: 
+                        const activationKey = this.data.decryptedDetails as ActivationKey;
+                        this.activationKey.set({
+                            Product: activationKey.Product,
+                            Key: activationKey.Key,
+                        })
+                        break;
+
                     default:
                         break;
                 }
@@ -212,6 +223,7 @@ export class VaultItemFormComponent {
         7: "Ключей восстановления",
         8: "SMTP Сервера - Электронная почты",
         9: "Аппаратного доступа",
+        10: "Ключа активации",
     } 
 
     title = computed(() => this.vaultTypeEnToRu[this.activeTab()]);
@@ -231,6 +243,7 @@ export class VaultItemFormComponent {
     asymmetricKey = signal<AsymmetricKey>({ PublicKey: '', PrivateKey: '', Application: '', Algorithm: '', KeySize: '', Passphrase: '', Format: '', Fingerprint: '', DateCreation: '', DateExpire: '' });
     email = signal<Email>({ Login: '', Email: '', Password: '', SmtpPort: '', SmtpServer: '', EncryptionType: '' });
     hardwareAccess = signal<HardwareAccess>({ Login: '', Password: '', Manufacturer: '' });
+    activationKey = signal<ActivationKey>({ Product: '', Key: '' });
 
     confirm() {
         let result: FormVaultItemResult;
@@ -365,6 +378,16 @@ export class VaultItemFormComponent {
                     }
                 }
                 break;
+            case VaultTypeEnum.ActivationKey: 
+                result = {
+                    type: VaultTypeEnum.ActivationKey,
+                    common,
+                    details: {
+                        Product: this.activationKey().Product,
+                        Key: this.activationKey().Key,
+                    }
+                }
+                break;
             default:
                 return;
         }
@@ -388,6 +411,7 @@ export class VaultItemFormComponent {
         this.asymmetricKey.set({ PublicKey: '', PrivateKey: '', Application: '', Algorithm: '', KeySize: '', Passphrase: '', Format: '', Fingerprint: '', DateCreation: '', DateExpire: '' });
         this.email.set({ Email: '', EncryptionType: '', Login: '', Password: '', SmtpPort: '', SmtpServer: '' });
         this.hardwareAccess.set({ Login: '', Manufacturer: '', Password: '' });
+        this.activationKey.set({ Product: '', Key: '' });
     }
 
     //#endregion

@@ -8,4 +8,5 @@ export enum VaultTypeEnum {
     RecoveryKeys = 7,
     Email = 8,
     HardwareAccess = 9,
+    ActivationKey = 10,
 }
