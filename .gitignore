@@ -301,3 +301,8 @@ $RECYCLE.BIN/
 ## Linux / Общее
 *~
 *.swp
+
+
+.nx/cache
+.nx/workspace-data
+.nx/migrate-runs

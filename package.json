@@ -1,0 +1,28 @@
+{
+  "name": "vaultigma",
+  "version": "1.0.0",
+  "description": "> **Единое защищённое хранилище для паролей экосистемы Crossdyne**",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crossdyne/enigma-vault.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/crossdyne/enigma-vault/issues"
+  },
+  "homepage": "https://github.com/crossdyne/enigma-vault#readme",
+  "devDependencies": {
+    "nx": "24.0.6"
+  },
+  "nx": {}
+}
