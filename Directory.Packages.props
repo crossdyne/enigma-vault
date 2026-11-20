@@ -1,0 +1,15 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <ItemGroup>
+
+    <!-- WebApi-->
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="11.0.0" />
+
+    <!-- Universal -->
+    <PackageVersion Include="Crossdyne.Toolkit" Version="1.1.0"/>
+
+  </ItemGroup>
+</Project>

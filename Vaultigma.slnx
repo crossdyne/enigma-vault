@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/services/" />
+  <Folder Name="/services/graph/">
+    <Project Path="services/graph/Vaultigma.Graph.Api/Vaultigma.Graph.Api.csproj" />
+    <Project Path="services/graph/Vaultigma.Graph.Application/Vaultigma.Graph.Application.csproj" />
+    <Project Path="services/graph/Vaultigma.Graph.Domain/Vaultigma.Graph.Domain.csproj" />
+    <Project Path="services/graph/Vaultigma.Graph.Infrastructure/Vaultigma.Graph.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/services/vault/">
+    <Project Path="services/vault/Vaultigma.Vault.Api/Vaultigma.Vault.Api.csproj" />
+    <Project Path="services/vault/Vaultigma.Vault.Application/Vaultigma.Vault.Application.csproj" />
+    <Project Path="services/vault/Vaultigma.Vault.Domain/Vaultigma.Vault.Domain.csproj" />
+    <Project Path="services/vault/Vaultigma.Vault.Infrastructure/Vaultigma.Vault.Infrastructure.csproj" />
+  </Folder>
+</Solution>

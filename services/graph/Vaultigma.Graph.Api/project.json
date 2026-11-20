@@ -1,0 +1,42 @@
+{
+    "name": "graph",
+    "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "services/graph/Vaultigma.Graph.Api",
+    "projectType": "application",
+    "targets": {
+        "serve": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "dotnet run",
+                "cwd": "services/graph/Vaultigma.Graph.Api"
+            },
+            "configurations": {
+                "watch": {
+                    "command": "dotnet watch run",
+                    "cwd": "services/graph/Vaultigma.Graph.Api"
+                },
+                "production": {
+                    "command": "dotnet run --configuration Release",
+                    "cwd": "services/graph/Vaultigma.Graph.Api"
+                }
+            }
+        },
+        "build": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "dotnet build",
+                "cwd": "services/graph/Vaultigma.Graph.Api"
+            },
+            "configurations": {
+                "watch": {
+                    "command": "dotnet watch build",
+                    "cwd": "services/graph/Vaultigma.Graph.Api"
+                },
+                "production": {
+                    "command": "dotnet build --configuration Release",
+                    "cwd": "services/graph/Vaultigma.Graph.Api"
+                }
+            }
+        }
+    }
+}

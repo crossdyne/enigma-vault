@@ -1,0 +1,11 @@
+@Vaultigma.Vault.Api_HostAddress = http://localhost:5152
+
+GET {{Vaultigma.Vault.Api_HostAddress}}/openapi/v1.json
+Accept: application/json
+
+###
+
+GET {{Vaultigma.Vault.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
