@@ -302,7 +302,7 @@ $RECYCLE.BIN/
 *~
 *.swp
 
-
+.nx
 .nx/cache
 .nx/workspace-data
 .nx/migrate-runs
